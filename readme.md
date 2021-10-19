@@ -1,4 +1,18 @@
-# Sum() - [put the task name here]
-[put a short description here] Implement the `sum` function returning a sum of two numbers
+# Params echo server
+Write a server that reads request url and query and returns a JSON with
+- `parts` - an array of `pathname` parts (`/hello/world/123` gives `['hello', 'world', '123']`)
+- `query` - an object with key/value pairs of all queryParams
 
-**Read [the guideline](https://github.com/mate-academy/js_task-guideline/blob/master/README.md) before start**
+# Examples
+```
+GET /hello/world/123?x=1&search=some
+```
+```json
+{
+  "parts": ["hello", "world", "123"],
+  "query": {
+    "x": "1",
+    "search": "some"
+  }
+}
+```
