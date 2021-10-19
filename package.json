@@ -2,7 +2,7 @@
   "name": "node_params-server",
   "version": "1.0.0",
   "description": "Params server",
-  "main": "src/sum.js",
+  "main": "src/app.js",
   "scripts": {
     "init": "mate-scripts init",
     "start": "mate-scripts start",
