@@ -11,13 +11,9 @@ const requestUrl = baseUrl + path + searchParams;
 const req = http.request(requestUrl, (res) => {
   res.setEncoding('utf-8');
 
-  res.on('data', (data) => {
-    console.log(data);
-  });
+  res.on('data', console.log);
 });
 
-req.on('error', (error) => {
-  console.log(error);
-});
+req.on('error', console.log);
 
 req.end();
