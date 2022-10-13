@@ -1,0 +1,12 @@
+{
+  "paths": [
+    "hello",
+    "world",
+    "123"
+  ],
+  "query": {
+    "x": "1",
+    "search": "some",
+    "all": "9"
+  }
+}
