@@ -7,7 +7,9 @@ const data = {};
 const requestListener = (req, res) => {
   const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
   const params = Object.fromEntries(normalizedURL.searchParams.entries());
+  const path = normalizedURL.pathname.split('/').slice(1);
 
+  data.parts = path;
   data.query = params;
   res.setHeader('Content-Type', 'application/json');
   res.writeHead(200);
