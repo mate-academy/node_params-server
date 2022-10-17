@@ -1,21 +1,23 @@
-'use strict';
+const { createServer } = require('http');
 
-/**
- * Implement sum function:
- *
- * Function takes 2 numbers and returns their sum
- *
- * sum(1, 2) === 3
- * sum(1, 11) === 12
- *
- * @param {number} a
- * @param {number} b
- *
- * @return {number}
- */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const PORT = process.env.PORT || 8080;
 
-module.exports = sum;
+const server = createServer((req, res) => {
+  const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
+
+  const data = {
+    parts: normalizedURL.pathname.slice(1).split('/'),
+  };
+
+  normalizedURL.searchParams.getAll();
+
+  const params = Object.fromEntries(normalizedURL.searchParams.entries());
+
+  data.query = params;
+
+  res.end();
+});
+
+server.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`); // eslint-disable-line no-console
+});
