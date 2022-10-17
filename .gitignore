@@ -2,6 +2,10 @@
 .idea
 .vscode
 
+eslint
+.eslint
+
+
 # Node
 node_modules
 
