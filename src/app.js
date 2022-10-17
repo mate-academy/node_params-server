@@ -1,15 +1,17 @@
-const { createServer } = require('http');
+const http = require('http');
 
 const PORT = process.env.PORT || 8080;
 
-const server = createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
 
-  const data = {
-    parts: normalizedURL.pathname.slice(1).split('/'),
-  };
+  console.log(normalizedURL); // eslint-disable-line no-console
 
-  normalizedURL.searchParams.getAll();
+  const data = {
+    parts: normalizedURL.pathname
+      .slice(1)
+      .split('/'),
+  };
 
   const params = Object.fromEntries(normalizedURL.searchParams.entries());
 
