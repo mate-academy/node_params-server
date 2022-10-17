@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "node_params-server",
   "version": "1.0.0",
   "description": "Params server",
