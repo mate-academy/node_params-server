@@ -14,6 +14,9 @@ const server = http.createServer((req, res) => {
 
   dataObj.parts = normalizeURL.pathname.split('/');
   dataObj.query = params;
+
+  console.log(dataObj);
+  res.end(JSON.stringify(dataObj));
 });
 
 server.listen(PORT, () => {
