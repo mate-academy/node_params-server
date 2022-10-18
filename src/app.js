@@ -10,13 +10,10 @@ const server = http.createServer((req, res) => {
 
   const data = {
     parts: normalizedUrl.pathname.slice(1).split('/'),
+    query: Object.fromEntries(normalizedUrl.searchParams.entries()),
   };
 
-  const params = Object.fromEntries(normalizedUrl.searchParams.entries());
-
-  data.query = params;
-
-  console.log(data);
+  console.log(JSON.stringify(data));
 
   res.end(JSON.stringify(data));
 });
