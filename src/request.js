@@ -3,11 +3,13 @@
 const http = require('http');
 
 const PORT = process.env.PORT || 3000;
-const pathname = process.env.pathname || `/hello/world/123`;
-const queryParams = process.env.queryParams || `?x=1&search=some`;
+const PATHNAME = process.env.PATHNAME || `/hello/world/123`;
+const QUERYPARAMS = process.env.QUERYPARAMS || `?x=1&search=some`;
+
+const href = `http://localhost:${PORT}${PATHNAME}${QUERYPARAMS}`;
 
 const req = http
-  .get(`http://localhost:${PORT}${pathname}${queryParams}`, (res) => {
+  .get(href, (res) => {
     res.setEncoding('utf8');
     // eslint-disable-next-line no-console
     res.on('data', console.log);

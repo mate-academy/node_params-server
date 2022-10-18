@@ -15,8 +15,8 @@ const server = http.createServer((req, res) => {
   const query = Object.fromEntries(normalizedURL.searchParams.entries());
 
   res.end(JSON.stringify({
-    parts: parts,
-    query: query,
+    parts,
+    query,
   }, null, 3));
 });
 
