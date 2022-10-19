@@ -1,21 +1,20 @@
-'use strict';
+"use strict";
 
-const http = require('http');
+const http = require("http");
 
 const PORT = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
   const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
   const query = Object.fromEntries(normalizedURL.searchParams.entries());
-  const parts = normalizedURL.pathname.slice(1).split('/');
+  const parts = normalizedURL.pathname.slice(1).split("/");
 
-  console.log(
-    {
+  res.end(
+    JSON.stringify({
       parts,
       query,
-    }
+    })
   );
-  res.end();
 });
 
 server.listen(PORT, () => {
