@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
 
   const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
 
-  const parts = normalizedURL.pathname.split('/').filter((part) => part !== '');
+  const parts = normalizedURL.pathname.slice(1).split('/');
 
   const query = Object.fromEntries(normalizedURL.searchParams.entries());
 
