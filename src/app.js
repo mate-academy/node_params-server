@@ -16,11 +16,7 @@ const server = http.createServer((req, res) => {
     parts, query,
   });
 
-  console.log(result);
-
-  res.end();
-
-  return result;
+  res.end(result);
 });
 
 server.listen(PORT, () => {
