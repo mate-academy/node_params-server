@@ -12,7 +12,9 @@ const server = http.createServer((req, res) => {
   const params = Object.fromEntries(normalizeURL.searchParams.entries());
   const parts = normalizeURL.pathname.slice(1).split('/');
 
-  res.end(JSON.stringify({ parts, query: params }));
+  res.end(JSON.stringify({
+    parts, query: params,
+  }));
 });
 
 server.listen(PORT, () => {
