@@ -1,21 +1,22 @@
+/* eslint-disable no-console */
 'use strict';
 
-/**
- * Implement sum function:
- *
- * Function takes 2 numbers and returns their sum
- *
- * sum(1, 2) === 3
- * sum(1, 11) === 12
- *
- * @param {number} a
- * @param {number} b
- *
- * @return {number}
- */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const http = require('http');
 
-module.exports = sum;
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+  const normalizeURL = new URL(req.url, `http://${req.headers.host}`);
+  const params = Object.fromEntries(normalizeURL.searchParams.entries());
+  const parts = normalizeURL.pathname.slice(1).split('/');
+
+  res.end(JSON.stringify({
+    parts, query: params,
+  }));
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
