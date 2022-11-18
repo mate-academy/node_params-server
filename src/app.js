@@ -2,14 +2,13 @@
 'use strict';
 
 const http = require('http');
-const url = require('url');
 
 const PORT = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
-  const normalizedUrl = new url.URL(req.url, `http://${req.headers.host}`);
+  const normalizedUrl = new URL(req.url, `http://${req.headers.host}`);
 
   let parts = [];
 
@@ -34,7 +33,3 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log('Server is running');
 });
-
-module.exports = {
-  server,
-};
