@@ -10,20 +10,20 @@ async function request(testUrl = url) {
     const res = await axios.get('http://localhost:5700' + testUrl);
     const data = res.data;
     const headers = res.headers;
-    const response = [ data, headers ]
+    const response = [ data, headers ];
 
     return response;
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
 }
 
-const dataFromRequest = async() => {
-  const data = await request();
+// const dataFromRequest = async() => {
+//   const data = await request();
 
-  console.log(data);
-}
+//   console.log(data);
+// };
 
-dataFromRequest();
+// dataFromRequest();
 
 module.exports = { request };

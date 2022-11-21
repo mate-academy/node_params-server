@@ -23,6 +23,7 @@ function createServer() {
     };
 
     res.statusCode = 200;
+
     const response = JSON.stringify(responseBody);
 
     res.end(response);

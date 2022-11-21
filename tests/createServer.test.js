@@ -1,9 +1,9 @@
 'use strict';
 /* eslint-disable max-len */
 
-
 const { Server } = require('http');
 const { request } = require('../src/request');
+const { expect } = require('expect');
 
 describe('createServer', () => {
   let createServer;
