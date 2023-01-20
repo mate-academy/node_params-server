@@ -20,8 +20,6 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer((req, res) => {
   const normalizedUrl = new URL(req.url, `http://${req.headers.host}`);
 
-  // console.log('normalizedUrl => ', normalizedUrl);
-
   const partsArray = normalizedUrl.pathname.split('/').slice(1);
   const params = Object.fromEntries(normalizedUrl.searchParams);
 
