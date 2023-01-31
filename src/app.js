@@ -1,6 +1,5 @@
 'use strict';
 
-const axios = require('axios');
 const http = require('http');
 
 const PORT = process.env.PORT || 8080;
@@ -14,5 +13,3 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT);
-
-axios.get('http://localhost:8080/hello/world/123?x=1&search=some');
