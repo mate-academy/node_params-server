@@ -7,6 +7,8 @@ const server = http.createServer((req, res) => {
   const query = Object.fromEntries(normalizedUrl.searchParams.entries());
   const parts = normalizedUrl.pathname.split('/').splice(1);
 
+  res.setHeader('Content-Type', 'application/json');
+
   res.end(JSON.stringify({
     parts,
     query,
