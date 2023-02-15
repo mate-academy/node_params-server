@@ -7,26 +7,25 @@ const PORT = 80;
 const server = http.createServer((request, response) => {
   response.setHeader('Content-Type', 'application/json');
 
-  const normalizeURL = new URL(request.url, `http://${request.headers.host}`);
+  try {
+    const normalizeURL = new URL(request.url, `http://${request.headers.host}`);
+    const parts = normalizeURL.pathname.slice(1).split('/');
+    const query = Object.fromEntries(normalizeURL.searchParams.entries());
+    const result = {
+      parts,
+      query,
+    };
 
-  const parts = normalizeURL.pathname.slice(1).split('/');
-
-  const result = {
-    parts,
-    query: {},
-  };
-
-  const search = normalizeURL.search.slice(1);
-
-  search.split('&').forEach(query => {
-    const [key, value] = query.split('=');
-
-    result.query[key] = value;
-  });
-
-  response.end(JSON.stringify(result));
+    response.end(JSON.stringify(result));
+  } catch (error) {
+    response.statusCode = 400;
+    response.end('Smt went wrong');
+  }
 });
 
-server.listen(PORT);
+server.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
 
 module.exports = { server };
