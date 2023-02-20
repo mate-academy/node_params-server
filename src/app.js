@@ -22,6 +22,8 @@ const server = http.createServer((req, res) => {
   const parts = normalizedURL.pathname.slice(1).split('/');
   const query = Object.fromEntries(normalizedURL.searchParams.entries());
 
+  res.setHeader('Content-type', 'application/json');
+
   res.end(JSON.stringify({
     parts,
     query,
