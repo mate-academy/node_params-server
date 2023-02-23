@@ -1,21 +1,31 @@
+/* eslint-disable no-console */
 'use strict';
 
-/**
- * Implement sum function:
- *
- * Function takes 2 numbers and returns their sum
- *
- * sum(1, 2) === 3
- * sum(1, 11) === 12
- *
- * @param {number} a
- * @param {number} b
- *
- * @return {number}
- */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const http = require('http');
+const { getQuery } = require('./getQuery');
 
-module.exports = sum;
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((request, response) => {
+  response.setHeader('Content-Type', 'application/json');
+
+  const normalizedUrl = new URL(
+    request.url,
+    `http://${request.headers.host}`
+  );
+
+  const parts = normalizedUrl.pathname.split('/').filter((part) => part !== '');
+
+  const query = getQuery(normalizedUrl.searchParams);
+
+  const responseData = {
+    parts,
+    query,
+  };
+
+  response.end(JSON.stringify(responseData));
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
