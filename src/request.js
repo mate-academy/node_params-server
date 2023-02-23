@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 // this file is created to check whether app works
 'use strict';
 
