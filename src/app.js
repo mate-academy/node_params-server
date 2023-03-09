@@ -12,13 +12,15 @@ const server = http.createServer((req, res) => {
   normalizedURL.searchParams.forEach((value, key) => {
     if (!query[key]) {
       query[key] = value;
-    } else {
-      if (!Array.isArray(query[key])) {
-        query[key] = [query[key]];
-      }
 
-      query[key].push(value);
+      return;
     }
+
+    if (!Array.isArray(query[key])) {
+      query[key] = [query[key]];
+    }
+
+    query[key].push(value);
   });
 
   res.setHeader('Content-Type', 'application/json');
