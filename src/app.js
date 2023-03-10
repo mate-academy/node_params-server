@@ -1,21 +1,35 @@
 'use strict';
 
-/**
- * Implement sum function:
- *
- * Function takes 2 numbers and returns their sum
- *
- * sum(1, 2) === 3
- * sum(1, 11) === 12
- *
- * @param {number} a
- * @param {number} b
- *
- * @return {number}
- */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const http = require('http');
 
-module.exports = sum;
+http.createServer((req, res) => {
+  const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
+
+  if (req.url === '/favicon.ico') {
+    res.writeHead(200, { 'Content-Type': 'image/x-icon' });
+    res.end();
+
+    return;
+  }
+
+  const pathName = normalizedURL.pathname.slice(1);
+  const search = normalizedURL.search;
+
+  if (!pathName && !search) {
+    res.end('There are no path and queries');
+
+    return;
+  }
+
+  const parts = pathName.split('/');
+  const query = Object.fromEntries(normalizedURL.searchParams.entries());
+
+  const responseData = {
+    parts,
+    query,
+  };
+
+  const preparedData = JSON.stringify(responseData);
+
+  res.end(preparedData);
+}).listen(5700);
