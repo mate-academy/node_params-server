@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-"use strict";
+'use strict';
 
-const http = require("http");
+const http = require('http');
 
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((request, response) => {
   const normalizedUrl = new URL(request.url, `http://localhost:${PORT}`);
 
-  const parts = normalizedUrl.pathname.slice(1).split("/");
+  const parts = normalizedUrl.pathname.slice(1).split('/');
   const query = Object.fromEntries(normalizedUrl.searchParams.entries());
 
   const result = {
