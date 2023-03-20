@@ -10,7 +10,21 @@ const server = http.createServer((req, res) => {
 
   const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
   const parts = normalizedURL.pathname.slice(1).split('/');
-  const query = Object.fromEntries(normalizedURL.searchParams.entries());
+  const query = {};
+
+  normalizedURL.searchParams.forEach((value, key) => {
+    if (!query[key]) {
+      query[key] = value;
+
+      return;
+    }
+
+    if (!Array.isArray(query[key])) {
+      query[key] = [query[key]];
+    }
+
+    query[key].push(value);
+  });
 
   const data = {
     parts,
