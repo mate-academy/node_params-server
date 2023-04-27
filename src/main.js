@@ -9,19 +9,7 @@ const server = http.createServer((req, res) => {
   const paths = paramsSplitted[0].split('/');
   const params = new URLSearchParams(paramsSplitted[1]);
   const errors = [];
-  const query = {};
-
-  for (const key of params) {
-    query[key[0]] = key[1];
-  }
-
-  if (!paths[0]) {
-    errors.push({ message: 'Your ways are empty' });
-  }
-
-  if (!Object.keys(query).length) {
-    errors.push({ message: 'Your params are empty' });
-  }
+  const query = Object.fromEntries(new URLSearchParams(params));
 
   if (errors.length) {
     res.statusCode = 400;
@@ -38,5 +26,7 @@ const server = http.createServer((req, res) => {
 
   res.end(JSON.stringify(result));
 });
+
+server.listen(8080);
 
 module.exports = { server };
