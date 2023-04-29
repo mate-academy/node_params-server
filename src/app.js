@@ -13,6 +13,8 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  response.setHeader('Content-Type', 'application/json');
+
   response.end(JSON.stringify(getParams(request.url)));
 });
 
