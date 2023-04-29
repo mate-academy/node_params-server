@@ -13,7 +13,7 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  return JSON.stringify(getParams(request.url));
+  response.end(JSON.stringify(getParams(request.url)));
 });
 
 server.listen(PORT, () => {
