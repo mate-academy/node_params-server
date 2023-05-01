@@ -5,9 +5,13 @@ const http = require('http');
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-  const normilezedURL = new URL(req.url, `http://${req.headers.host}`);
-  const pathname = normilezedURL.pathname.split('/').filter(el => el !== '');
-  const params = Object.fromEntries(normilezedURL.searchParams.entries());
+  const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = normalizedURL.pathname.split('/').filter(el => el !== '');
+  const params = Object.fromEntries(normalizedURL.searchParams.entries());
+
+  res.writeHead(200, {
+    'Content-type': 'application/json',
+  });
 
   res.end(JSON.stringify({
     parts: pathname,
@@ -17,5 +21,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log('server Start');
+  console.log(`Server started on PORT: ${PORT}`);
 });
