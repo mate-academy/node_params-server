@@ -4,16 +4,13 @@ const getParams = (url) => {
   const [path, inputSearchParams] = url.split('?');
 
   const pathParams = path.slice(1).split('/');
-
   const searchParams = new URLSearchParams(inputSearchParams);
-  const searchParamsNames = inputSearchParams
-    .split('&')
-    .map(searchParam => searchParam.split('=')[0]);
-  const uniqueSearchParamsNames = Array.from(new Set(searchParamsNames));
+  const searchParamsKeys = searchParams.keys();
+  const uniqueSearchParamsKeys = Array.from(new Set(searchParamsKeys));
 
   const searchParamsEcho = {};
 
-  for (const name of uniqueSearchParamsNames) {
+  for (const name of uniqueSearchParamsKeys) {
     const params = searchParams.getAll(name);
 
     if (params.length > 1) {

@@ -14,7 +14,6 @@ const server = http.createServer((request, response) => {
   }
 
   response.setHeader('Content-Type', 'application/json');
-
   response.end(JSON.stringify(getParams(request.url)));
 });
 
@@ -22,4 +21,4 @@ server.listen(PORT, () => {
   myConsole.log(`Server is running`);
 });
 
-http.get(`http://localhost:${PORT}/test/test1?query=1&x=abc&query=2`);
+http.get(`http://localhost:${PORT}/test?abc=1&abc=2&x=1`);
