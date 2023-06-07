@@ -8,10 +8,11 @@ const server = http.createServer((req, res) => {
     req.url,
     `http://${req.headers.host}`
   );
+
   const pathname = normalizedUrl.pathname;
   const parts = pathname.split('/').filter(part => part !== '');
 
-  const queryParams = normalizedUrl.query;
+  const queryParams = normalizedUrl.searchParams;
 
   const response = {
     parts: parts,
