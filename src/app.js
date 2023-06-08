@@ -9,14 +9,14 @@ const server = http.createServer((req, res) => {
     `http://${req.headers.host}`
   );
 
-  const pathname = normalizedUrl.pathname;
+  const { pathname } = normalizedUrl;
   const parts = pathname.split('/').filter(part => part !== '');
 
-  const queryParams = normalizedUrl.searchParams;
+  const query = normalizedUrl.searchParams;
 
   const response = {
-    parts: parts,
-    query: queryParams,
+    parts,
+    query,
   };
 
   res.setHeader('Content-Type', 'application/json');
