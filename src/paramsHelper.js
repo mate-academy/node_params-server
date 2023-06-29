@@ -6,21 +6,11 @@ const createPathArray = (pathArray) => {
   return sliced;
 };
 
-const readParam = (string) => {
-  const resultObject = {};
-  const splitted = string.split('?');
-  const path = splitted[0];
-  const params = splitted[1];
-  const searchParams = new URLSearchParams(params);
+const createParamsObj = (searchParams) => {
   const searchParamsEntries = Object.fromEntries(searchParams.entries());
 
-  resultObject.parts = createPathArray(path);
-
-  resultObject.query = {
-    ...searchParamsEntries,
-  };
-
-  return resultObject;
+  return searchParamsEntries;
 };
 
-module.exports = { readParam };
+module.exports.createPathArray = createPathArray;
+module.exports.createParamsObj = createParamsObj;
