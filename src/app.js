@@ -24,7 +24,8 @@ const server = http.createServer((req, res) => {
       res.end(resultObject);
     }
   } catch (error) {
-    // Some error handling
+    res.statusCode = 503;
+    res.end('Some error occurred');
   }
 });
 
