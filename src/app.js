@@ -3,7 +3,7 @@
 const http = require('http');
 const querystring = require('querystring');
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const readUrl = new URL(`http://${req.headers.host + req.url}`);
   const queryParams = querystring.parse(readUrl.search.slice(1));
 
@@ -12,5 +12,11 @@ http.createServer((req, res) => {
     query: queryParams,
   });
 
+  res.writeHead(200, { 'Content-Type': 'application/json' });
   res.end(dataToSend);
+});
+
+server.listen(3000, () => {
+  // eslint-disable-next-line no-console
+  console.log('Server is running');
 });
