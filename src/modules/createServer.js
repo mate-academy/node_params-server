@@ -3,6 +3,7 @@
 const http = require('http');
 
 const { convertParamsToObject } = require('./convertSearchParams');
+const { getPathnameParts } = require('./getPathnameParts');
 
 const createServer = () => {
   const server = http.createServer((req, res) => {
@@ -10,10 +11,7 @@ const createServer = () => {
 
     const [pathname, search] = req.url.split('?');
 
-    const parts = pathname
-      .slice(1)
-      .split('/');
-
+    const parts = getPathnameParts(pathname);
     const query = convertParamsToObject(search);
 
     res.statusCode = 200;
