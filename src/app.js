@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
 
   const normalizedUrl = new url.URL(req.url, `http://${req.headers.host}`);
 
-  const parts = normalizedUrl.pathname.slice(1).split('/');
+  const parts = normalizedUrl.pathname.slice(1).split('/').filter(part => part);
   const query = {};
 
   for (const [key, value] of normalizedUrl.searchParams.entries()) {
@@ -31,4 +31,5 @@ const server = http.createServer((req, res) => {
   );
 });
 
-server.listen(3000);
+// eslint-disable-next-line no-console
+server.listen(3000, () => console.log('Server started on port 3000'));
