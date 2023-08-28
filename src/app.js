@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
   const params = Object.fromEntries(url.searchParams.entries());
 
   res.writeHead(200, {
-    'Content-Type': 'aplication/html',
+    'Content-Type': 'application/json',
   });
 
   res.end(JSON.stringify({
