@@ -4,37 +4,27 @@
 const http = require('http');
 const PORT = 8080;
 
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = url.pathname.replace('/', '');
   const parts = pathname ? pathname.split('/') : [];
-  const searchParams = Object.fromEntries(url.searchParams.entries());
+  const queryMap = new Map();
 
   res.setHeader('Content-type', 'application/json');
 
-  if (!parts.length && !isEmpty(searchParams)) {
-    res.end(JSON.stringify({
-      query: searchParams,
-    }));
-
-    return;
+  for (const [key, value] of url.searchParams.entries()) {
+    if (queryMap.has(key)) {
+      queryMap.get(key).push(value);
+    } else {
+      queryMap.set(key, [value]);
+    }
   }
 
-  if (isEmpty(searchParams)) {
-    res.end(JSON.stringify({
-      parts,
-    }));
-
-    return;
-  }
+  const query = Object.fromEntries(queryMap);
 
   const response = JSON.stringify({
     parts,
-    query: searchParams,
+    query,
   });
 
   res.end(response);
