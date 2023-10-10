@@ -13,9 +13,25 @@
  *
  * @return {number}
  */
-function sum(a, b) {
-  // write code here
-  return a + b;
+
+const http = require('http');
+
+function createServer() {
+  const server = http.createServer((req, res) => {
+    const [parts, query] = req.url.slice(1).split('?');
+    const params = new URLSearchParams(query);
+
+    const successResponse = {
+      parts: parts.split('/'),
+      query: Object.fromEntries(params.entries()),
+    };
+
+    res.statusCode = 200;
+    res.statusMessage = 'OK';
+    res.end(JSON.stringify(successResponse));
+  });
+
+  return server;
 }
 
-module.exports = sum;
+module.exports = { createServer };
