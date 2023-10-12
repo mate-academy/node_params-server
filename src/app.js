@@ -35,7 +35,7 @@ const server = http.createServer((request, response) => {
   };
 });
 
-server.listen(5700, () => {
+server.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Server started! 🚀');
 });
