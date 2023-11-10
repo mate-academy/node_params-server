@@ -1,21 +1,29 @@
 'use strict';
 
-/**
- * Implement sum function:
- *
- * Function takes 2 numbers and returns their sum
- *
- * sum(1, 2) === 3
- * sum(1, 11) === 12
- *
- * @param {number} a
- * @param {number} b
- *
- * @return {number}
- */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const http = require('http');
 
-module.exports = sum;
+const createServer = http.createServer((req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.statusCode = 200;
+
+  const PORT = process.argv.PORT || 8080;
+
+  const myURL = new URL(req.url, `http://localhost:${PORT}`);
+  const parts = myURL.pathname.split('/').slice(1);
+  const query = {};
+
+  for (const [key, value] of myURL.searchParams.entries()) {
+    query[key] = value;
+  }
+
+  res.end(JSON.stringify({
+    parts,
+    query,
+  }
+  ));
+});
+
+createServer.listen(8080, () => {
+  // eslint-disable-next-line no-console
+  console.log('Server is running');
+});
