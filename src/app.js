@@ -16,12 +16,11 @@ const createServer = http.createServer((req, res) => {
     query[key] = value;
   }
 
-  const response = {
+  res.end(JSON.stringify({
     parts,
     query,
-  };
-
-  res.end(JSON.stringify(response));
+  }
+  ));
 });
 
 createServer.listen(8080, () => {
