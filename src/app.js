@@ -5,16 +5,17 @@ const http = require('http');
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
 
-  const normalizedURL = new URL(req.url, `http//${req.headers.host}`);
-  const path = new URL(req.url, `http//${req.headers.host}`).slice(1);
+  const normalizedURL = new URL(req.url, `http://${req.headers.host}`);
+  const path = new URL(req.url, `http://${req.headers.host}`).pathname.slice(1);
   const parts = path.split('/');
-  const query = normalizedURL.search;
-  const queryArray = query.split('=');
+  const query = normalizedURL.search.slice(1);
+  const queryArrayPairs = query.split('&');
   const queryObject = {};
 
-  for (let i = 0; i < queryArray.length; i + 2) {
-    const key = queryArray[i];
-    const value = queryArray[i + 1];
+  for (const pair of queryArrayPairs) {
+    const pairArray = pair.split('=');
+    const key = pairArray[0];
+    const value = pairArray[1];
     const existingValue = queryObject[key];
 
     if (existingValue) {
