@@ -1,6 +1,7 @@
 'use strict';
 
 const http = require('http');
+const PORT = 5500;
 
 const createServer = () => {
   const server = http.createServer((req, res) => {
@@ -18,8 +19,10 @@ const createServer = () => {
     };
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    console.log(res.end(JSON.stringify(responseJson)));
+    res.end(JSON.stringify(responseJson));
   });
 
   return server;
 };
+
+createServer().listen(PORT);
