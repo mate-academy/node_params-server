@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
 
   const { url } = req;
   const [partsString, paramsQuery] = url.split('?');
-  const parts = partsString
+  const parts = partsString.slice(1)
     ? partsString.slice(1).split('/')
     : [];
   const params = paramsQuery
