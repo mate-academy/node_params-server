@@ -1,5 +1,7 @@
 'use strict';
 
+const http = require('http');
+
 /**
  * Implement sum function:
  *
@@ -13,9 +15,23 @@
  *
  * @return {number}
  */
-function sum(a, b) {
-  // write code here
-  return a + b;
-}
+const server = http.createServer((req, res) => {
+  const result = {
+    parts: [],
+    query: {},
+  };
 
-module.exports = sum;
+  const [urlParts, urlQueries] = req.url.slice(1).split('?');
+
+  urlParts.split('/').forEach(part => result.parts.push(part));
+
+  urlQueries.split('&').forEach((expression) => {
+    const query = expression.split('=');
+
+    result.query[query[0]] = query[1];
+  });
+
+  res.end(JSON.stringify(result, null, 2));
+});
+
+module.exports = server;
