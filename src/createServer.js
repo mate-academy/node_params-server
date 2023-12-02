@@ -22,7 +22,7 @@ const createServer = () => {
     // decided to make the response with null instead of throwing an error
     const response = {
       parts: parts[0] ? parts : null,
-      query: normalizedUrl.query ? query : null,
+      query: normalizedUrl.search ? query : null,
     };
 
     res.end(JSON.stringify(response));
