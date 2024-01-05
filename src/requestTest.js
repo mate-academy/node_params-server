@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const BASE_URL = 'http://localhost:8080';
 const pathname = '/hello/world/123';
-const search = '?x=1&x=2&search=some';
+const search = '?x=1&search=some';
 
 const href = BASE_URL + pathname + search;
 

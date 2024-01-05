@@ -8,15 +8,7 @@ const PORT = process.env.PORT || 8080;
 const server = http.createServer((req, res) => {
   const normilizedURL = new URL(req.url, `http://${req.headers.host}`);
   const parts = normilizedURL.pathname.slice(1).split('/');
-  const query = {};
-
-  normilizedURL.searchParams.forEach((value, key) => {
-    if (query[key]) {
-      query[key].push(value);
-    } else {
-      query[key] = [value];
-    }
-  });
+  const query = Object.fromEntries(normilizedURL.searchParams.entries());
 
   res.setHeader('Content-Type', 'application/json');
 
