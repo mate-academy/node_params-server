@@ -9,8 +9,16 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
 
   const normalize = new URL(req.url, 'http://localhost:3000');
-  const parts = normalize.pathname.slice(1).split('/');
-  const query = Object.fromEntries(normalize.searchParams.entries());
+  const parts = normalize.pathname.slice(1).split('/') || [];
+  const query = {};
+
+  normalize.searchParams.forEach((value, key) => {
+    if (query[key]) {
+      query[key].push(value);
+    } else {
+      query[key] = [value];
+    }
+  });
 
   res.end(JSON.stringify({
     parts,
