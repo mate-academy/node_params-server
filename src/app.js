@@ -10,6 +10,10 @@ const server = http.createServer((req, res) => {
   const query = Object.fromEntries(normaluzedURL.searchParams.entries());
   const parts = normaluzedURL.pathname.slice(1).split('/');
 
+  for (const key in query) {
+    query[key] = normaluzedURL.searchParams.getAll(key);
+  }
+
   res.end(JSON.stringify(
     {
       parts,
