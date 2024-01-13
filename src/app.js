@@ -12,9 +12,18 @@ const server = http.createServer((req, res) => {
   if (parts.includes('favicon.ico')) {
     res.end();
   } else {
-    const query = Object.fromEntries(
-      normalizeURL.searchParams.entries()
-    );
+    const search = normalizeURL.search.slice(1).split('&');
+    const query = {};
+
+    search.forEach(item => {
+      const [key, value] = item.split('=');
+
+      if (query[key]) {
+        query[key] += `, ${value}`;
+      } else {
+        query[key] = value;
+      }
+    });
 
     res.statusCode = 200;
 
