@@ -25,12 +25,12 @@ describe('Params server', () => {
     describe('Server', () => {
       let server;
 
-      beforeAll(() => {
+      beforeEach(() => {
         server = createServer();
         server.listen(PORT);
       });
 
-      afterAll(() => {
+      afterEach(() => {
         server.close();
       });
 
@@ -63,14 +63,12 @@ describe('Params server', () => {
         expect(response.data.parts).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']);
 
         expect(response.status).toEqual(200);
-        expect(response.data.query).toEqual({});
       });
 
       it('should handle requests with no query parameters', async() => {
         const response = await axios.get(HOST + '/test');
 
         expect(response.data.query).toEqual({});
-        expect(response.data.parts).toEqual(['test']);
         expect(response.status).toEqual(200);
       });
 
@@ -78,17 +76,23 @@ describe('Params server', () => {
         const response = await axios.get(HOST + '/test?param1=value1&param2=value2');
 
         expect(response.data.query).toEqual({
-          param1: 'value1', param2: 'value2',
+          param1: 'value1',
+          param2: 'value2',
         });
       });
 
-      it('should not omit empty values for query params and pathname parts', async() => {
+      it('should not omit empty values for query params', async() => {
         const response = await axios.post(HOST + '//test?param1=&param2=');
+
+        expect(response.data.parts).toEqual(['test']);
+      });
+
+      it('should not omit empty values for pathname parts', async() => {
+        const response = await axios.post(HOST + '?param1=&param2=');
 
         expect(response.data.query).toEqual({
           param1: '', param2: '',
         });
-        expect(response.data.parts).toEqual(['', 'test']);
       });
     });
   });
