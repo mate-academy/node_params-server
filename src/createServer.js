@@ -5,28 +5,31 @@ const http = require('http');
 
 function createServer() {
   return http.createServer((req, res) => {
-    // Parsowanie request URL
-    const url = new URL(req.url, `http://${req.headers.host}`);
-    const parts = url.pathname.split('/').filter(part => part !== '');
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = 200;
 
-    // Parsowanie zapytania
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const parts = url.pathname.slice(1).split('/');
+    const search = url.searchParams;
     const query = {};
 
-    url.searchParams.forEach((value, key) => {
-      query[key] = value;
+    search.forEach((value, key) => {
+      if (value && key) {
+        query[key] = value;
+      }
     });
 
-    // Tworzenie JSON response
-    const response = {
-      parts,
-      query,
+    // for (const [key, value] of search.entries()) {
+    //   query[key] = value;
+    // }
+
+    const result = {
+      parts, query,
     };
 
-    console.log(response);
+    console.log(result);
 
-    // Ustawienie nagłówków i wysłanie response JSON
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(response));
+    res.end(JSON.stringify(result));
   });
 }
 
