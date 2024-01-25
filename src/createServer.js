@@ -11,21 +11,16 @@ function createServer() {
 
     const url = new URL(path, `http://${req.headers.host}`);
 
-    const parts = url.pathname
-      .replace(/\/*/, '')
-      .trim()
-      .split('/');
+    const parts = url.pathname.slice(1).split('/');
     const query = {};
 
     for (const param of url.searchParams.keys()) {
       query[param] = url.searchParams.get(param) || '';
     }
 
-    const result = { query };
-
-    if (parts.length) {
-      result.parts = parts;
-    }
+    const result = {
+      parts, query,
+    };
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result));
