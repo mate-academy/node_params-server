@@ -7,10 +7,20 @@ function createServer() {
   const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json');
 
+    let url;
+
+    if (req.url.indexOf('//') === -1) {
+      url = req.url;
+    } else {
+      url = req.url.slice(1);
+    }
+
+    console.log(url);
+
     const {
       pathname,
       searchParams,
-    } = new URL(req.url, `http://${req.headers.host}`);
+    } = new URL(url, `http://${req.headers.host}`);
 
     if (pathname === '/favicon.ico') {
       res.writeHead(204, { 'Content-Type': 'image/x-icon' });
