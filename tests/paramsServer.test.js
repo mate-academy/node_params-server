@@ -16,7 +16,7 @@ describe('Params server', () => {
           .toBeInstanceOf(Function);
       });
 
-      it('should create an instance of Server', async() => {
+      it('should create an instance of Server', async () => {
         expect(createServer())
           .toBeInstanceOf(Server);
       });
@@ -34,19 +34,19 @@ describe('Params server', () => {
         server.close();
       });
 
-      it('should respond with 200 status code if trying to GET "/"', async() => {
+      it('should respond with 200 status code if trying to GET "/"', async () => {
         const response = await axios.get(HOST);
 
         expect(response.status).toBe(200);
       });
 
-      it('should return correct response headers', async() => {
+      it('should return correct response headers', async () => {
         const response = await axios.get(HOST);
 
         expect(response.headers['content-type']).toBe('application/json');
       });
 
-      it('should parse pathname and query', async() => {
+      it('should parse pathname and query', async () => {
         const res = await axios.get(HOST + '/hello/world/123?x=1&search=some');
 
         expect(res.data.parts).toEqual(['hello', 'world', '123']);
@@ -57,7 +57,7 @@ describe('Params server', () => {
         expect(res.status).toEqual(200);
       });
 
-      it('should handle pathnames with different lengths', async() => {
+      it('should handle pathnames with different lengths', async () => {
         const response = await axios.get(HOST + '/a/b/c/d/e/f/g/h/i/j');
 
         expect(response.data.parts).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']);
@@ -65,14 +65,14 @@ describe('Params server', () => {
         expect(response.status).toEqual(200);
       });
 
-      it('should handle requests with no query parameters', async() => {
+      it('should handle requests with no query parameters', async () => {
         const response = await axios.get(HOST + '/test');
 
         expect(response.data.query).toEqual({});
         expect(response.status).toEqual(200);
       });
 
-      it('shouold handle requests with multiple query parameters', async() => {
+      it('shouold handle requests with multiple query parameters', async () => {
         const response = await axios.get(HOST + '/test?param1=value1&param2=value2');
 
         expect(response.data.query).toEqual({
@@ -81,13 +81,13 @@ describe('Params server', () => {
         });
       });
 
-      it('should not omit empty values for query params', async() => {
+      it('should not omit empty values for query params', async () => {
         const response = await axios.post(HOST + '//test?param1=&param2=');
 
         expect(response.data.parts).toEqual(['test']);
       });
 
-      it('should not omit empty values for pathname parts', async() => {
+      it('should not omit empty values for pathname parts', async () => {
         const response = await axios.post(HOST + '?param1=&param2=');
 
         expect(response.data.query).toEqual({
