@@ -5,11 +5,9 @@ const http = require('http');
 
 const createServer = () => {
   const server = http.createServer((req, res) => {
-    const path = new URL(req.url, 'http://localhost/');
-    const parts
-      = path.pathname === '/'
-        ? [path.hostname]
-        : path.pathname.split('/').filter((e) => e.length > 0);
+    const normalizeURL = req.url.replace(new RegExp('/+'), '/');
+    const path = new URL(normalizeURL, 'http://localhost');
+    const parts = path.pathname.split('/').filter((e) => e.length > 0);
 
     const query = {};
 
