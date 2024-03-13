@@ -1,9 +1,12 @@
 /* eslint-disable max-len */
 'use strict';
 
-const { Server } = require('http');
+const { Server, Agent } = require('http');
 const { createServer } = require('../src/createServer.js');
 const axios = require('axios');
+
+// this prevents `socket hang up` for Node.js 20.10+
+axios.defaults.httpAgent = new Agent({ keepAlive: false });
 
 const PORT = 5701;
 const HOST = `http://localhost:${PORT}`;
