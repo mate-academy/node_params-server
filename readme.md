@@ -18,4 +18,3 @@ GET /hello/world/123?x=1&search=some
     "search": "some"
   }
 }
-```
