@@ -19,8 +19,10 @@ function createServer() {
         query,
       };
 
+      res.statusCode = 200;
       res.end(JSON.stringify(response));
     } catch (error) {
+      res.statusCode = 400;
       res.end('Error');
     }
   });
