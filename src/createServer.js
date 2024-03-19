@@ -11,13 +11,12 @@ function createServer() {
 
     const parts = pathname.split('/').filter(part => part);
 
-    console.log(req.url, parts, pathname);
-
-    const queryObject = {};
-
-    searchParams.forEach((value, key) => {
-      queryObject[key] = value;
-    });
+    const queryObject = [...searchParams].reduce((prev, [key, value]) => {
+      return {
+        ...prev,
+        [key]: value,
+      };
+    }, {});
 
     const responseData = {
       parts: parts,
