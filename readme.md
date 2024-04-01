@@ -9,7 +9,7 @@ Write a server that reads request url and query and returns a JSON with
 # Examples
 ```
 GET /hello/world/123?x=1&search=some
-```
+````
 ```json
 {
   "parts": ["hello", "world", "123"],
