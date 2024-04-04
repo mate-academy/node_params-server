@@ -9,8 +9,6 @@ function createServer() {
 
     let newUrl = req.url;
 
-    console.log(req.url);
-
     if (req.url.slice(0, 2) === '//') {
       newUrl = req.url.slice(1);
     }
