@@ -8,8 +8,9 @@ function createServer() {
     res.setHeader('Content-Type', 'application/json');
 
     let newUrl = req.url;
+    const startWith = req.url.slice(0, 2);
 
-    if (req.url.slice(0, 2) === '//') {
+    if (startWith === '//') {
       newUrl = req.url.slice(1);
     }
 
