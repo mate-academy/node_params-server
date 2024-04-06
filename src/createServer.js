@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 'use strict';
 
 const http = require('http');
@@ -22,7 +21,6 @@ function createServer() {
       query,
     };
 
-    console.log(responseBody);
     res.writeHead(200);
     res.end(JSON.stringify(responseBody));
   });
