@@ -21,7 +21,7 @@ function createServer() {
       query,
     };
 
-    res.writeHead(200);
+    res.statusCode = 200;
     res.end(JSON.stringify(responseBody));
   });
 
