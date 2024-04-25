@@ -10,15 +10,8 @@ function createServer() {
     const normalizedUrl = new URL(req.url, 'http://localhost:5701');
 
     const query = Object.fromEntries(normalizedUrl.searchParams.entries());
-    const parts = [];
     const urlParams = req.url.split('?')[0];
-    const urlParamsArr = urlParams.split('/');
-
-    urlParamsArr.forEach((part) => {
-      if (part) {
-        parts.push(part);
-      }
-    });
+    const parts = urlParams.split('/').filter((part) => part);
 
     try {
       res.statusCode = 200;
