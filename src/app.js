@@ -3,9 +3,9 @@
 
 'use strict';
 
-const { createServer } = require('./createServer');
+const { createServer, PORT } = require('./createServer');
 
-createServer().listen(5701, () => {
-  console.log(`Server is running on http://localhost:${5701} 🚀`);
-  console.log('Available at http://localhost:5700');
+createServer().listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT} 🚀`);
+  console.log(`Available at http://localhost:${PORT}`);
 });
