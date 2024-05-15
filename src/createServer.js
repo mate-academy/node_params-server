@@ -35,11 +35,8 @@ function getPathParts(path) {
 
 function getQueryParams(queryParams) {
   const params = new URLSearchParams(queryParams);
-  const queryObj = {};
 
-  params.forEach((value, key) => (queryObj[key] = value));
-
-  return queryObj;
+  return Object.fromEntries(params);
 }
 
 module.exports = {
