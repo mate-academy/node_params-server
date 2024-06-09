@@ -13,13 +13,11 @@ function createServer() {
 
     obj.parts = normalizedUrl.pathname.split('/').filter((e) => e.length > 0);
 
-    // if (normalizedUrl.searchParams.length > 0) {
     obj.query = {};
 
     normalizedUrl.searchParams.forEach((value, key) => {
       obj.query[key] = value;
     });
-    // }
 
     console.log(normalizedUrl);
     res.setHeader('Content-Type', 'application/json');
