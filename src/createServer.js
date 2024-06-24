@@ -1,9 +1,28 @@
 /* eslint-disable no-console */
 'use strict';
 
+const http = require('http');
+
 function createServer() {
-  /* Write your code here */
-  // Return instance of http.Server class
+  const server = http.createServer((req, res) => {
+    const normalizedUrl = new URL(
+      req.url.replaceAll('//', '/'),
+      'http://localhost:5701',
+    );
+
+    const parts = normalizedUrl.pathname.slice(1).split('/');
+    const query = {};
+
+    normalizedUrl.searchParams.forEach((value, key) => {
+      query[key] = value;
+    });
+
+    res.setHeader('content-type', 'application/json');
+    res.statusCode = 200;
+    res.end(JSON.stringify({ parts, query }));
+  });
+
+  return server;
 }
 
 module.exports = {
