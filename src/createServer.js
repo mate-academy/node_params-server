@@ -6,7 +6,7 @@ const http = require('http');
 function createServer() {
   const server = http.createServer((req, res) => {
     const normalizedUrl = new URL(
-      req.url.replaceAll('//', '/'),
+      req.url.replace(/\/\/+/g, '/'),
       'http://localhost:5701',
     );
 
