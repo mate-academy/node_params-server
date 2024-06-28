@@ -5,26 +5,31 @@ const http = require('http');
 
 function createServer() {
   return http.createServer((req, res) => {
-    const reqUrl = new URL(`http://${req.headers.host}${req.url}`);
-    let parts = reqUrl.pathname.split('/');
+    try {
+      const reqUrl = new URL(`http://${req.headers.host}${req.url}`);
 
-    if (parts.length === 1 && parts[0] === '') {
-      parts = [];
+      // Parse pathname parts
+      const parts = reqUrl.pathname.split('/').filter((part) => part !== '');
+
+      // Parse query parameters
+      const query = {};
+
+      reqUrl.searchParams.forEach((value, key) => {
+        query[key] = value;
+      });
+
+      const response = {
+        parts: parts.length > 0 ? parts : [''],
+        query: query,
+      };
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.error('Error processing request:', error.message);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Internal Server Error' }));
     }
-
-    const query = {};
-
-    reqUrl.searchParams.forEach((value, key) => {
-      query[key] = value;
-    });
-
-    const response = {
-      parts: parts.filter((part) => part !== '' || parts.length === 1),
-      query: query,
-    };
-
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(response));
   });
 }
 
