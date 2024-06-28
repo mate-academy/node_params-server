@@ -6,7 +6,11 @@ const http = require('http');
 function createServer() {
   return http.createServer((req, res) => {
     const reqUrl = new URL(`http://${req.headers.host}${req.url}`);
-    const parts = reqUrl.pathname.split('/').filter((part) => part !== '');
+    let parts = reqUrl.pathname.split('/');
+
+    if (parts.length === 1 && parts[0] === '') {
+      parts = [];
+    }
 
     const query = {};
 
@@ -15,7 +19,7 @@ function createServer() {
     });
 
     const response = {
-      parts: parts,
+      parts: parts.filter((part) => part !== '' || parts.length === 1),
       query: query,
     };
 
