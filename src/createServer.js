@@ -8,10 +8,8 @@ function createServer() {
     try {
       const reqUrl = new URL(`http://${req.headers.host}${req.url}`);
 
-      // Parse pathname parts
       const parts = reqUrl.pathname.split('/').filter((part) => part !== '');
 
-      // Parse query parameters
       const query = {};
 
       reqUrl.searchParams.forEach((value, key) => {
