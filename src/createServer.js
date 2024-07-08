@@ -11,10 +11,9 @@ function createServer() {
 
     const result = {};
 
-    const reqUrl = req.url;
-    const reqUrlSplited = reqUrl.split('?');
+    const reqUrlSplited = req.url.split('?');
 
-    result.parts = reqUrlSplited[0].split('/').splice(1);
+    result.parts = reqUrlSplited[0].split('/').filter((e) => e.length > 0);
 
     const params = new URLSearchParams(reqUrlSplited[1]);
 
