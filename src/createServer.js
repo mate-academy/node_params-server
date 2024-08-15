@@ -2,11 +2,12 @@
 'use strict';
 
 const http = require('http');
+const url = require('url');
 
 function createServer() {
   return http.createServer((req, res) => {
-    const normalizedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const parts = normalizedUrl.pathname.slice(1).split('/').join(', ');
+    const normalizedUrl = new url.URL(req.url, `http://${req.headers.host}`);
+    const parts = normalizedUrl.pathname.slice(1).split('/');
     const searchParams = normalizedUrl.searchParams;
     const query = {};
 
