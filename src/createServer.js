@@ -6,7 +6,7 @@ const http = require('http');
 function createServer() {
   return http.createServer((req, res) => {
     const normalizedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const parts = normalizedUrl.pathname.split('/');
+    const parts = normalizedUrl.pathname.slice(1).split('/').join(', ');
     const searchParams = normalizedUrl.searchParams.entries();
     const query = {};
 
