@@ -7,10 +7,10 @@ function createServer() {
   return http.createServer((req, res) => {
     const normalizedUrl = new URL(req.url, `http://${req.headers.host}`);
     const parts = normalizedUrl.pathname.slice(1).split('/').join(', ');
-    const searchParams = normalizedUrl.searchParams.entries();
+    const searchParams = normalizedUrl.searchParams;
     const query = {};
 
-    for (const [key, value] of searchParams) {
+    for (const [key, value] of searchParams.entries()) {
       if (!query[key]) {
         query[key] = [];
       }
