@@ -7,7 +7,10 @@ const url = require('url');
 function createServer() {
   return http.createServer((req, res) => {
     const normalizedUrl = new url.URL(req.url, `http://${req.headers.host}`);
-    const parts = normalizedUrl.pathname.slice(1).split('/');
+    const parts = normalizedUrl.pathname
+      .slice(1)
+      .split('/')
+      .filter((item) => item !== '');
     const searchParams = normalizedUrl.searchParams;
     const query = {};
 
@@ -16,7 +19,7 @@ function createServer() {
         query[key] = [];
       }
 
-      query[key].push(value);
+      query[key].push(value || '');
     }
 
     for (const key in query) {
