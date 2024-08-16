@@ -20,8 +20,8 @@ function createServer() {
     });
 
     const response = {
-      parts: parts,
-      query: query,
+      parts,
+      query,
     };
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
