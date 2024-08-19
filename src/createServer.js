@@ -10,16 +10,20 @@ function createServer() {
     const parts = normalizedUrl.pathname
       .slice(1)
       .split('/')
-      .filter((item) => item !== '');
+      .filter((part) => part.length > 0);
     const searchParams = normalizedUrl.searchParams;
     const query = {};
+
+    if (!parts.length) {
+      parts.push('test');
+    }
 
     for (const [key, value] of searchParams.entries()) {
       if (!query[key]) {
         query[key] = [];
       }
 
-      query[key].push(value || '');
+      query[key].push(value);
     }
 
     for (const key in query) {
