@@ -22,8 +22,6 @@ function createServer() {
       query,
     };
 
-    console.log('🚀 ~ server ~ search:', search, query, parts, url, result);
-
     res.statusCode = 200;
 
     res.end(JSON.stringify(result));
