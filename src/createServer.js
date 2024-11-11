@@ -6,12 +6,6 @@ function createServer() {
   return http.createServer((req, res) => {
     const url = new URL(req.url.slice(1), `http://${req.headers.host}`);
 
-    if (url.pathname === '/favicon.ico') {
-      res.end();
-
-      return;
-    }
-
     const result = {
       parts: url.pathname.split(/\/+/).filter((v) => !!v),
       query: {},
