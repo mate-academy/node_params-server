@@ -3,8 +3,7 @@ const http = require('http');
 function createServer() {
   return http.createServer((req, res) => {
     // Use URL to parse the request URL
-    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-
+    const parsedUrl = new URL(req.url.slice(1), `http://${req.headers.host}`);
     // Normalize pathname and split it into parts
     const parts = parsedUrl.pathname.split('/').filter(Boolean);
 
