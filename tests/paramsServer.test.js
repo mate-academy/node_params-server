@@ -97,7 +97,7 @@ describe('Params server', () => {
       });
 
       it('should not omit empty values for query params', async () => {
-        const response = await axios.post(HOST + '//test?param1=&param2=');
+        const response = await axios.post(HOST + '/test?param1=&param2=');
 
         expect(response.data.parts).toEqual(['test']);
       });
