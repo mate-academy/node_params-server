@@ -18,8 +18,6 @@ const createServer = () =>
     res.end(resBody);
   });
 
-createServer().listen(5701);
-
 module.exports = {
   createServer,
 };
