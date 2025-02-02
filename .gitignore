@@ -4,6 +4,7 @@
 
 # Node
 node_modules
+.github
 
 # MacOS
 .DS_Store
