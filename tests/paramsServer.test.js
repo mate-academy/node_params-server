@@ -26,9 +26,10 @@ describe('Params server', () => {
     describe('Server', () => {
       let server;
 
-      beforeEach(() => {
+      beforeEach(async() => {
         server = createServer();
         server.listen(PORT);
+        await new Promise(resolve => setTimeout(resolve, 0));
       });
 
       afterEach(() => {
