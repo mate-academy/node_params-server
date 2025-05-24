@@ -11,15 +11,9 @@ function createServer() {
   return http.createServer((req, res) => {
     const urlReq = url.parse(req.url, true);
 
-    const parts = urlReq.pathname
-      .replaceAll('/', ' ')
-      .split(' ')
-      .map((word) => {
-        return word.trim();
-      })
-      .filter((w) => {
-        return w.length !== 0;
-      });
+    const parts = urlReq.pathname.split('/').filter((w) => {
+      return w.length !== 0;
+    });
     const query = urlReq.query;
 
     const response = {
