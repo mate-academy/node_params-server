@@ -5,19 +5,16 @@ const http = require('http');
 
 function createServer() {
   return http.createServer((req, res) => {
-    const protocol = req.socket.encrypted ? 'https' : 'http';
-    const url = new URL(req.url, `${protocol}://${req.headers.host}`);
-    const path = url.pathname.slice(1);
-    const query = req.url.split('?')[1];
-    const params = new URLSearchParams(query);
-    const findParams = Object.fromEntries(params.entries());
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const parts = url.pathname.split('/').filter(Boolean);
+    const query = Object.fromEntries(url.searchParams.entries());
 
-    console.log(path, query);
+    res.writeHead(200, { 'content-type': 'application/json' });
 
     res.end(
       JSON.stringify({
-        parts: path.split('/'),
-        query: findParams,
+        parts,
+        query,
       }),
     );
   });
