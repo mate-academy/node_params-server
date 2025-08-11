@@ -6,7 +6,7 @@ function createServer() {
   return http.createServer((req, res) => {
     const urlParams = new URL(req.url, `http://localhost:5701`);
 
-   const pathName = urlParams.pathname.split('/').filter(Boolean);
+    const pathName = urlParams.pathname.split('/').slice(1).filter(Boolean);
 
     const searchParams = {};
 
