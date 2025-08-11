@@ -13,7 +13,7 @@ function createServer() {
     const normalizedUrl = new URL(preparedUrl, BASE_URL);
 
     const pathname = normalizedUrl.pathname.slice(1);
-    const pathnameArray = pathname.split('/');
+    const pathnameArray = pathname.split('/').filter(Boolean);
 
     const queryObject = Object.fromEntries(
       normalizedUrl.searchParams.entries(),
