@@ -8,15 +8,13 @@ function createServer() {
     res.setHeader('Content-type', 'application/json');
 
     const normalizedURL = req.url.split('?');
-    const parts = normalizedURL[0].split('/').filter(Boolean);
+    const parts = normalizedURL[0]
+      .split('/')
+      .filter(Boolean)
+      .map(decodeURIComponent);
     const params = new URLSearchParams(normalizedURL[1]);
 
-    const query = Object.fromEntries(
-      [...params.entries()].map(([key, value]) => [
-        key,
-        decodeURIComponent(value),
-      ]),
-    );
+    const query = Object.fromEntries(params.entries());
 
     res.end(JSON.stringify({ parts, query }));
   });
