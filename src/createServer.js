@@ -5,10 +5,12 @@ const http = require('http');
 
 function createServer() {
   return http.createServer((req, res) => {
-    const [path, params] = req.url.split('?');
+    const [path, params] = decodeURIComponent(req.url).split('?');
     const searchParams = new URLSearchParams(params);
 
     res.setHeader('Content-Type', 'application/json');
+
+    res.statusCode = 200;
 
     res.end(
       JSON.stringify({
