@@ -8,8 +8,17 @@ function createServer() {
     const parsedUrl = new URL(req.url, 'http://localhost');
     const pathName = parsedUrl.pathname;
     const query = Object.fromEntries(parsedUrl.searchParams);
-    const parts = pathName.split('/').filter((part) => part !== '');
-
+    const parts = pathName
+      .split('/')
+      .filter((part) => part !== '')
+      .map((segment) => {
+        try {
+          return decodeURIComponent(segment);
+        } catch (error) {
+          return segment;
+        }
+      });
+    res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
 
     const result = {
