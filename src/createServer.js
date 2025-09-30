@@ -7,12 +7,10 @@ function createServer() {
   /* Write your code here */
   // Return instance of http.Server class
   const server = http.createServer((req, res) => {
-    const [path, queryString] = req.url.split('?');
+    const [path, queryString = ''] = req.url.split('?');
     const params = new URLSearchParams(queryString);
 
-    const normalizeParts = path.slice(1).startsWith('/')
-      ? path.slice(2).split('/')
-      : path.slice(1).split('/');
+    const normalizeParts = path.split('/').filter((ch) => ch);
 
     const normalizeQuery = Object.fromEntries(params.entries());
 
