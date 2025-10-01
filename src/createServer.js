@@ -10,7 +10,13 @@ function createServer() {
     const [path, queryString = ''] = req.url.split('?');
     const params = new URLSearchParams(queryString);
 
-    const normalizeParts = path.split('/').filter((ch) => ch);
+    const normalizeParts = path.split('/').filter((ch) => {
+      try {
+        return decodeURIComponent(ch);
+      } catch (error) {
+        return ch;
+      }
+    });
 
     const normalizeQuery = Object.fromEntries(params.entries());
 
