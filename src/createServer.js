@@ -15,6 +15,7 @@ function createServer() {
       query: resultParams,
     };
 
+    res.writeHead(200, 'OK', { 'Content-type': 'application/json' });
     res.end(JSON.stringify(responseBody));
   });
 
