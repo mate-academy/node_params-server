@@ -6,12 +6,10 @@ const http = require('http');
 function createServer() {
   return http.createServer((req, res) => {
     const normalizedUrl = new URL(req.url, 'http://localhost');
-    const reqPhrase = normalizedUrl.pathname.split('/').filter(Boolean);
-    const paramsObj = Object.fromEntries(normalizedUrl.searchParams.entries());
 
     const resp = {
-      parts: reqPhrase,
-      query: paramsObj,
+      parts: normalizedUrl.pathname.split('/').filter(Boolean),
+      query: Object.fromEntries(normalizedUrl.searchParams.entries()),
     };
 
     res.setHeader('Content-Type', 'application/json');
