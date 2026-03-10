@@ -5,7 +5,8 @@ const http = require('http');
 
 function createServer() {
   return http.createServer((req, res) => {
-    const url = new URL(req.url || '/', 'http://localhost');
+    const rawUrl = (req.url || '/').replace(/^\/+/, '/');
+    const url = new URL(rawUrl, 'http://localhost');
 
     const parts = url.pathname.split('/').filter(Boolean);
 
