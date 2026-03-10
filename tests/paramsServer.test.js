@@ -26,13 +26,18 @@ describe('Params server', () => {
     describe('Server', () => {
       let server;
 
-      beforeEach(() => {
+      beforeEach(async () => {
         server = createServer();
-        server.listen(PORT);
+
+        await new Promise(resolve => {
+          server.listen(PORT, resolve);
+        });
       });
 
-      afterEach(() => {
-        server.close();
+      afterEach(async () => {
+        await new Promise(resolve => {
+          server.close(resolve);
+        });
       });
 
       it('should respond with 200 status code if trying to GET "/"', async () => {
@@ -85,7 +90,7 @@ describe('Params server', () => {
         expect(response.status).toEqual(200);
       });
 
-      it('shouold handle requests with multiple query parameters', async () => {
+      it('should handle requests with multiple query parameters', async () => {
         const response = await axios.get(
           HOST + '/test?param1=value1&param2=value2',
         );
