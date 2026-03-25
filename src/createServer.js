@@ -8,7 +8,7 @@ function createServer() {
     res.setHeader('Content-Type', 'application/json');
 
     const requestURL = new URL(req.url, `http://${req.headers.host}`);
-    const parts = requestURL.pathname.split('/').slice(1);
+    const parts = requestURL.pathname.split('/').filter(Boolean);
     const query = Object.fromEntries(requestURL.searchParams.entries());
 
     res.end(JSON.stringify({ parts, query }));
