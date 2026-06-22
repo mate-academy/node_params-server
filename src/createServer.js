@@ -13,7 +13,7 @@ function createServer() {
     const queryObj = Object.fromEntries(normalizedUrl.searchParams.entries());
 
     const resultObj = {
-      parts: partsArr.slice(1),
+      parts: partsArr.filter(Boolean),
       query: queryObj,
     };
 
