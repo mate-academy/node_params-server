@@ -8,10 +8,7 @@ function createServer() {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
     const pathname = url.pathname.slice(1);
-    const parts =
-      pathname[0] === '/'
-        ? pathname.slice(1).pathname.split('/')
-        : pathname.split('/');
+    const parts = pathname.split('/').filter((el) => el !== '');
 
     const query = Object.fromEntries(Array.from(url.searchParams));
 
