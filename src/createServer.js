@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
 'use strict';
 
-function createServer() {
-  /* Write your code here */
-  // Return instance of http.Server class
-}
+const http = require('node:http');
 
-module.exports = {
-  createServer,
-};
+const createServer = () => http.createServer((req, res) => {
+  const urlObj = new URL(req.url, `http://${req.headers.host}`);
+  const parts = urlObj.pathname.split('/').filter(Boolean);
+
+  res.setHeader('Content-Type', 'application/json');
+
+  res.end(JSON.stringify({ parts, query: Object.fromEntries(urlObj.searchParams) }));
+});
+
+module.exports = { createServer };
