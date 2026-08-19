@@ -6,7 +6,7 @@ const http = require('node:http');
 function createServer() {
   const server = http.createServer((req, res) => {
     const [path, queryString] = req.url.split('?');
-    const pathParts = path.slice(1).split('/');
+    const pathParts = path.slice(1).split('/').filter(Boolean);
 
     const params = new URLSearchParams(queryString);
     const paramsObj = Object.fromEntries(params);
